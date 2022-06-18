@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/models/todo.dart';
+
 // import 'package:my_todo_app/providers/todo_default.dart';
 import 'dart:async';
 import 'package:my_todo_app/controller/circular_progress_control.dart';
@@ -125,16 +126,23 @@ class _ListScreenState extends State<ListScreen> {
             )
           : ReorderableListView.builder(
               onReorder: (oldIndex, newIndex) => setState(() {
-                final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
+                    final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
 
-                final todo = todos.removeAt(oldIndex);
-                todos.insert(index, todo);
-              }),
+                    final todo = todos.removeAt(oldIndex);
+                    todos.insert(index, todo);
+                  }),
               itemBuilder: (context, index) {
                 return ListTile(
                   key: ValueKey(index),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  title: Text(todos[index].title),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  title: Text(todos[index].title,
+                      // style: TextStyle(
+                      //   decoration: TextDecoration.lineThrough,
+                      //   decorationThickness: 3.0,
+                      //   decorationColor: Colors.red,
+                      // )
+                  ),
                   onTap: () {
                     showDialog(
                         context: context,
@@ -153,10 +161,25 @@ class _ListScreenState extends State<ListScreen> {
                                 child: Text('설명 : ' + todos[index].description),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 30, 10),
-                                child: Text('완료',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                child: Row(
+                                  children: [
+                                    //TextButton 만 사용하면 완료 text가 center로 맞춰지기에
+                                    //SizedBox를 추가하여 text를 우측으로 배치
+                                    SizedBox(width: 200),
+                                    TextButton(
+                                      child: Text('완료',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      onPressed: () async {
+                                        setState(() {
+                                          print("[UI] Complete");
+                                        });
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -214,8 +237,10 @@ class _ListScreenState extends State<ListScreen> {
                                                 title: title,
                                                 description: description,
                                               );
-                                              await todoSqlite.updateTodo(newTodo);
-                                              List<Todo> newTodos = await todoSqlite.getTodos();
+                                              await todoSqlite
+                                                  .updateTodo(newTodo);
+                                              List<Todo> newTodos =
+                                                  await todoSqlite.getTodos();
                                               setState(() {
                                                 todos = newTodos;
                                                 // todoDefault.updateTodo(newTodo);
@@ -251,8 +276,9 @@ class _ListScreenState extends State<ListScreen> {
                                             child: Text('삭제'),
                                             onPressed: () async {
                                               await todoSqlite.deleteTodo(
-                                                todos[index].id ?? 0);
-                                              List<Todo> newTodos = await todoSqlite.getTodos();
+                                                  todos[index].id ?? 0);
+                                              List<Todo> newTodos =
+                                                  await todoSqlite.getTodos();
                                               setState(() {
                                                 todos = newTodos;
                                                 // todoDefault.deleteTodo(
