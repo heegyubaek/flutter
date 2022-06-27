@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:my_todo_app/models/todo.dart';
+import 'package:my_todo_app/todoapp/models/todo.dart';
 
 class TodoFirebase {
   // late CollectionReference todosReference = FirebaseFirestore.instance.collection('todos');

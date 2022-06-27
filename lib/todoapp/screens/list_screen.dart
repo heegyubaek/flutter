@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:my_todo_app/models/todo.dart';
+import 'package:my_todo_app/todoapp/models/todo.dart';
 
-// import 'package:my_todo_app/providers/todo_default.dart';
+// import 'package:my_todo_app/todoapp/providers/todo_default.dart';
 import 'dart:async';
-import 'package:my_todo_app/controller/circular_progress_control.dart';
-import 'package:my_todo_app/providers/todo_firestore.dart';
+import 'package:my_todo_app/todoapp/controller/circular_progress_control.dart';
+import 'package:my_todo_app/todoapp/providers/todo_firestore.dart';
 
-import 'package:my_todo_app/providers/todo_sqlite.dart';
+import 'package:my_todo_app/todoapp/providers/todo_sqlite.dart';
 import 'package:reorderables/reorderables.dart';
 
 class ListScreen extends StatefulWidget {

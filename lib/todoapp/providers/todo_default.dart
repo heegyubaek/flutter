@@ -1,4 +1,4 @@
-import 'package:my_todo_app/models/todo.dart';
+import 'package:my_todo_app/todoapp/models/todo.dart';
 
 class TodoDefault {
   List<Todo> dummyTodos = [
